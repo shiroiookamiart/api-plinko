@@ -8,12 +8,13 @@ use App\Models\Datos;
 class ApiController extends Controller
 {
     public function getData(Request $request){
-        $data = Datos::where("angulo", "=", $request->angulo)->get();
-        $mydata = [];
-        if(count($data) > 0){
-            $value = rand(0, count($data) - 1);
-            $mydata = $data[$value];
-        }
-        return response()->json($mydata);
+        if(!empty($request->angulo))
+            $data = Datos::where("angulo", "=", $request->angulo)->get();
+            $mydata = [];
+            if(count($data) > 0){
+                $value = rand(0, count($data) - 1);
+                $mydata = $data[$value];
+            }
+            return response()->json($mydata);
     }
 }
