@@ -8,7 +8,7 @@ use App\Models\Datos;
 class ApiController extends Controller
 {
     public function getData(Request $request){
-        if(!empty($request->angulo))
+        if(isset($request->angulo)){
             $data = Datos::where("angulo", "=", $request->angulo)->get();
             $mydata = [];
             if(count($data) > 0){
@@ -16,5 +16,8 @@ class ApiController extends Controller
                 $mydata = $data[$value];
             }
             return response()->json($mydata);
+        }else{
+            return response("error");
+        }                    
     }
 }
